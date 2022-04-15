@@ -1,0 +1,51 @@
+syntax = "proto3";
+package slandymani.odinworkshop.oracle;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "oracle/params.proto";
+import "oracle/random_numbers.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/slandymani/odin-workshop/x/oracle/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/slandymani/odinworkshop/oracle/params";
+  }
+  
+  	// RandomNumbersResult defines a rpc handler method for MsgRandomNumbersData.
+  	rpc RandomNumbersResult(QueryRandomNumbersRequest) returns (QueryRandomNumbersResponse) {
+		option (google.api.http).get = "/odinworkshop/oracle/random_numbers_result/{request_id}";
+  	}
+
+  	// LastRandomNumbersId query the last RandomNumbers result id
+  	rpc LastRandomNumbersId(QueryLastRandomNumbersIdRequest) returns (QueryLastRandomNumbersIdResponse) {
+		option (google.api.http).get = "/odinworkshop/oracle/last_random_numbers_id";
+  	}
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryRandomNumbersRequest {int64 request_id = 1;}
+
+message QueryRandomNumbersResponse {
+  RandomNumbersResult result = 1;
+}
+
+message QueryLastRandomNumbersIdRequest {}
+
+message QueryLastRandomNumbersIdResponse {int64 request_id = 1;}
+
+// this line is used by starport scaffolding # 3

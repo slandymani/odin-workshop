@@ -12574,6 +12574,121 @@ paths:
                         }
       tags:
         - Query
+  /odinworkshop/oracle/last_random_numbers_id:
+    get:
+      summary: LastRandomNumbersId query the last RandomNumbers result id
+      operationId: SlandymaniOdinworkshopOracleLastRandomNumbersId
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              requestId:
+                type: string
+                format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  '/odinworkshop/oracle/random_numbers_result/{requestId}':
+    get:
+      summary: >-
+        RandomNumbersResult defines a rpc handler method for
+        MsgRandomNumbersData.
+      operationId: SlandymaniOdinworkshopOracleRandomNumbersResult
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                properties:
+                  numbers:
+                    type: array
+                    items:
+                      type: string
+                      format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          type: string
+          format: int64
+      tags:
+        - Query
+  /slandymani/odinworkshop/oracle/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: SlandymaniOdinworkshopOracleParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
 definitions:
   cosmos.authz.v1beta1.Grant:
     type: object
@@ -19924,3 +20039,46 @@ definitions:
       and
 
       freezing clients
+  slandymani.odinworkshop.oracle.MsgRandomNumbersDataResponse:
+    type: object
+  slandymani.odinworkshop.oracle.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  slandymani.odinworkshop.oracle.QueryLastRandomNumbersIdResponse:
+    type: object
+    properties:
+      requestId:
+        type: string
+        format: int64
+  slandymani.odinworkshop.oracle.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  slandymani.odinworkshop.oracle.QueryRandomNumbersResponse:
+    type: object
+    properties:
+      result:
+        type: object
+        properties:
+          numbers:
+            type: array
+            items:
+              type: string
+              format: int64
+  slandymani.odinworkshop.oracle.RandomNumbersCallData:
+    type: object
+    properties:
+      length:
+        type: string
+        format: int64
+  slandymani.odinworkshop.oracle.RandomNumbersResult:
+    type: object
+    properties:
+      numbers:
+        type: array
+        items:
+          type: string
+          format: int64

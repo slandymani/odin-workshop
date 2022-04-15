@@ -1,0 +1,12 @@
+syntax = "proto3";
+package slandymani.odinworkshop.oracle;
+
+option go_package = "github.com/slandymani/odin-workshop/x/oracle/types";
+
+message RandomNumbersCallData {
+  int64 length = 1;
+}
+
+message RandomNumbersResult {
+  repeated int64 numbers = 1;
+}
